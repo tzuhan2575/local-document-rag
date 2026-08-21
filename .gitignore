@@ -1,0 +1,22 @@
+# Virtual environments
+.venv/
+.venv-*/
+
+# Environment variables and API keys
+.env
+.env.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local documents and generated indexes
+data/
+vector_store/
+
+# macOS and editors
+.DS_Store
+.vscode/
