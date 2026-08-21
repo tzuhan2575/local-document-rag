@@ -23,3 +23,7 @@ vector_store/
 
 # Python packaging metadata
 *.egg-info/
+
+# Build artifacts
+build/
+dist/
