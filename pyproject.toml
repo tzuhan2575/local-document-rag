@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-document-rag"
+version = "0.1.0"
+description = "A local document RAG system with source-grounded answers."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pypdf>=5,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
