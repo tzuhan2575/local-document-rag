@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-Environment and project structure setup in progress.
+PDF text extraction implemented with page-level metadata and input validation.
 Environment
 Python 3.12
 macOS
