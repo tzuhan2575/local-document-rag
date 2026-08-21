@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-PDF text extraction implemented with page-level metadata and input validation.
+PDF extraction and overlapping character-based chunking implemented with source-position metadata and automated tests.
 Environment
 Python 3.12
 macOS
