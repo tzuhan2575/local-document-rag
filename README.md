@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-End-to-end PDF ingestion and semantic retrieval implemented with persistent Qdrant storage, filename and page metadata, and automated tests.
+End-to-end PDF ingestion, persistent semantic retrieval, and source-grounded prompt construction implemented with automated tests.
 Environment
 Python 3.12
 macOS
@@ -60,3 +60,11 @@ PDF
  -> persistent Qdrant points with metadata payloads
 The current system can index a PDF and retrieve ranked evidence with its
 source filename, page number, character positions, and similarity score.
+
+## Grounded Prompting
+
+- Retrieved chunks are labeled as `[Source N]`
+- Filename, page number, and retrieval score are included
+- The LLM is instructed to answer only from retrieved evidence
+- Missing context produces an explicit insufficient-evidence instruction
+- Retrieved text is delimited and treated as evidence, not instructions
