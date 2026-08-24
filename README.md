@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-End-to-end PDF ingestion, persistent semantic retrieval, source-grounded prompting, and provider-independent answer orchestration implemented with automated tests.
+End-to-end local document RAG implemented with persistent retrieval, grounded prompting, provider-independent orchestration, and a tested OpenAI Responses API adapter.
 Environment
 Python 3.12
 macOS
@@ -77,3 +77,12 @@ keys, network access, or usage cost.
 
 `AnswerResult` returns both the generated answer and the exact retrieved chunks
 used as evidence.
+
+## OpenAI Integration
+
+- Uses the OpenAI Responses API through the official Python SDK
+- Maps the grounded system prompt to `instructions`
+- Maps the question and retrieved context to `input`
+- Limits generated output tokens
+- Reads credentials through the SDK environment configuration
+- Fully tested with a fake client; live API verification is pending billing setup
