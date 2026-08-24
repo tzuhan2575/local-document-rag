@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-End-to-end local document RAG implemented with persistent retrieval, grounded prompting, provider-independent orchestration, and a tested OpenAI Responses API adapter.
+End-to-end local document RAG implemented with persistent retrieval, grounded prompting, OpenAI integration, and a tested FastAPI service.
 Environment
 Python 3.12
 macOS
@@ -86,3 +86,15 @@ used as evidence.
 - Limits generated output tokens
 - Reads credentials through the SDK environment configuration
 - Fully tested with a fake client; live API verification is pending billing setup
+
+## API
+
+The project exposes a FastAPI application with automatic OpenAPI documentation.
+
+Run locally:
+
+```bash
+python -m uvicorn local_document_rag.api:app --app-dir src --port 8000
+Available endpoints:
+GET /health — service health check
+GET /docs — interactive Swagger UI
