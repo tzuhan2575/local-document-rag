@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-End-to-end PDF ingestion, persistent semantic retrieval, and source-grounded prompt construction implemented with automated tests.
+End-to-end PDF ingestion, persistent semantic retrieval, source-grounded prompting, and provider-independent answer orchestration implemented with automated tests.
 Environment
 Python 3.12
 macOS
@@ -68,3 +68,12 @@ source filename, page number, character positions, and similarity score.
 - The LLM is instructed to answer only from retrieved evidence
 - Missing context produces an explicit insufficient-evidence instruction
 - Retrieved text is delimited and treated as evidence, not instructions
+
+## Answer Generation Architecture
+
+The generation layer depends on a small `LLMClient` protocol rather than a
+specific provider SDK. This keeps retrieval and prompting testable without API
+keys, network access, or usage cost.
+
+`AnswerResult` returns both the generated answer and the exact retrieved chunks
+used as evidence.
