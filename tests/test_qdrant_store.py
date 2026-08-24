@@ -6,13 +6,14 @@ from local_document_rag.chunker import TextChunk
 from local_document_rag.qdrant_store import QdrantChunkStore
 
 
-def make_chunk(chunk_id, page_number, text):
+def make_chunk(chunk_id, page_number, text, source="document.pdf"):
     return TextChunk(
         chunk_id=chunk_id,
         page_number=page_number,
         text=text,
         start_char=0,
         end_char=len(text),
+        source=source,
     )
 
 

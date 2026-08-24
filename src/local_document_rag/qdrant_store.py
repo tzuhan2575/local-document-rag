@@ -63,7 +63,7 @@ class QdrantChunkStore:
             stable_id = str(
                 uuid5(
                     NAMESPACE_URL,
-                    f"{chunk.chunk_id}|{chunk.page_number}|{chunk.text}",
+                    f"{chunk.source}|{chunk.chunk_id}|{chunk.page_number}|{chunk.text}",
                 )
             )
 
@@ -72,6 +72,7 @@ class QdrantChunkStore:
                     id=stable_id,
                     vector=vector.tolist(),
                     payload={
+                        "source": chunk.source,
                         "chunk_id": chunk.chunk_id,
                         "page_number": chunk.page_number,
                         "text": chunk.text,
@@ -123,6 +124,7 @@ class QdrantChunkStore:
                 text=str(payload["text"]),
                 start_char=int(payload["start_char"]),
                 end_char=int(payload["end_char"]),
+                source=str(payload.get("source", "")),
             )
 
             results.append(

@@ -15,6 +15,7 @@ class TextChunk:
     text: str
     start_char: int
     end_char: int
+    source: str = ""
 
 
 def chunk_pages(
@@ -53,6 +54,7 @@ def chunk_pages(
                     text=text,
                     start_char=start,
                     end_char=end,
+                    source=page.source,
                 )
             )
 

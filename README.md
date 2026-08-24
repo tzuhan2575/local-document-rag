@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-PDF extraction, overlapping chunking, local embeddings, semantic retrieval, and persistent Qdrant vector storage implemented with automated tests.
+End-to-end PDF ingestion and semantic retrieval implemented with persistent Qdrant storage, filename and page metadata, and automated tests.
 Environment
 Python 3.12
 macOS
@@ -49,3 +49,14 @@ Virtual environment: venv
 - Chunk text and page positions stored as payload metadata
 - Stable UUID-based point IDs for idempotent upserts
 - In-memory Qdrant integration tests require no Docker or network
+
+## Ingestion Pipeline
+
+```text
+PDF
+ -> page-level text with filename and page number
+ -> overlapping chunks with character positions
+ -> normalized 384-dimensional embeddings
+ -> persistent Qdrant points with metadata payloads
+The current system can index a PDF and retrieve ranked evidence with its
+source filename, page number, character positions, and similarity score.

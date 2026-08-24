@@ -12,6 +12,7 @@ class PageText:
 
     page_number: int
     text: str
+    source: str = ""
 
 
 def extract_pdf_pages(pdf_path: str | Path) -> list[PageText]:
@@ -34,6 +35,7 @@ def extract_pdf_pages(pdf_path: str | Path) -> list[PageText]:
             PageText(
                 page_number=page_number,
                 text=text.strip(),
+                source=path.name,
             )
         )
 
