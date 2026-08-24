@@ -107,3 +107,12 @@ curl -X POST http://127.0.0.1:8000/query \
   -d '{"question":"What does the document say?","top_k":3}'
 The default exported app does not initialize ML or API dependencies and returns
 HTTP 503 for /query until a configured RAGAssistant is injected.
+
+Upload and index a PDF:
+
+```bash
+curl -X POST http://127.0.0.1:8000/documents \
+  -F "file=@/absolute/path/to/document.pdf"
+Uploaded files are copied into a temporary directory for extraction. The
+temporary file is removed after indexing; persistent chunks, embeddings, and
+source metadata remain in Qdrant.

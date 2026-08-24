@@ -95,3 +95,108 @@ def test_query_endpoint_returns_503_when_assistant_is_not_configured():
     assert response.json() == {
         "detail": "RAG assistant is not configured"
     }
+
+
+from pypdf.errors import PdfReadError
+
+from local_document_rag.indexer import IndexingResult
+
+
+class FakeIndexer:
+    def __init__(self, error=None):
+        self.error = error
+        self.paths = []
+        self.contents = []
+
+    def index_pdf(self, pdf_path):
+        self.paths.append(pdf_path)
+        self.contents.append(pdf_path.read_bytes())
+
+        if self.error is not None:
+            raise self.error
+
+        return IndexingResult(
+            source=pdf_path.name,
+            page_count=2,
+            chunk_count=4,
+        )
+
+
+def test_document_upload_indexes_pdf_and_removes_temporary_file():
+    indexer = FakeIndexer()
+    client = TestClient(create_app(indexer=indexer))
+
+    response = client.post(
+        "/documents",
+        files={
+            "file": (
+                "../sample.pdf",
+                b"%PDF-test-content",
+                "application/pdf",
+            )
+        },
+    )
+
+    assert response.status_code == 201
+    assert response.json() == {
+        "source": "sample.pdf",
+        "page_count": 2,
+        "chunk_count": 4,
+    }
+    assert indexer.paths[0].name == "sample.pdf"
+    assert indexer.contents == [b"%PDF-test-content"]
+    assert not indexer.paths[0].exists()
+
+
+def test_document_upload_rejects_non_pdf_extension():
+    indexer = FakeIndexer()
+    response = TestClient(create_app(indexer=indexer)).post(
+        "/documents",
+        files={
+            "file": (
+                "notes.txt",
+                b"not a pdf",
+                "text/plain",
+            )
+        },
+    )
+
+    assert response.status_code == 400
+    assert indexer.paths == []
+
+
+def test_document_upload_rejects_unreadable_pdf():
+    indexer = FakeIndexer(error=PdfReadError("invalid PDF"))
+    response = TestClient(create_app(indexer=indexer)).post(
+        "/documents",
+        files={
+            "file": (
+                "broken.pdf",
+                b"invalid",
+                "application/pdf",
+            )
+        },
+    )
+
+    assert response.status_code == 400
+    assert response.json() == {
+        "detail": "Uploaded file is not a readable PDF"
+    }
+
+
+def test_document_upload_returns_503_when_indexer_is_not_configured():
+    response = TestClient(create_app()).post(
+        "/documents",
+        files={
+            "file": (
+                "sample.pdf",
+                b"%PDF",
+                "application/pdf",
+            )
+        },
+    )
+
+    assert response.status_code == 503
+    assert response.json() == {
+        "detail": "Document indexer is not configured"
+    }
