@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-PDF extraction, overlapping chunking, and local normalized text embeddings implemented with automated tests.
+PDF extraction, overlapping chunking, local embeddings, and exact semantic retrieval implemented with automated tests.
 Environment
 Python 3.12
 macOS
@@ -34,3 +34,10 @@ Virtual environment: venv
 - Output dimension: 384
 - Local inference with Sentence Transformers
 - L2-normalized vectors for cosine similarity search
+
+## Retrieval Baseline
+
+- Exact cosine similarity search implemented with NumPy
+- In-memory document embedding index
+- Ranked retrieval with similarity scores and page metadata
+- Current limitation: embeddings are recomputed after each restart
