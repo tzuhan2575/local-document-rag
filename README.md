@@ -150,3 +150,19 @@ Current metrics:
 
 The evaluation implementation supports multiple relevant chunks per question
 and validates empty labels, invalid questions, and top-k configuration.
+
+### Baseline Retrieval Result
+
+| Dataset | Queries | Chunks | Top-k | Recall@k | MRR |
+|---|---:|---:|---:|---:|---:|
+| Synthetic two-page PDF | 2 | 2 | 1 | 1.000 | 1.000 |
+
+Run the baseline:
+
+```bash
+PYTHONPATH=src python scripts/evaluate_retrieval.py \
+  evaluation/retrieval_examples.json \
+  --top-k 1
+This synthetic baseline is a pipeline sanity check, not evidence of general
+retrieval quality. A meaningful experiment requires more documents, harder
+questions, negative examples, and comparison across chunking configurations.

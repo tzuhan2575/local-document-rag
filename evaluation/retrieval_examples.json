@@ -1,0 +1,19 @@
+{
+  "document": "fixtures/sample.pdf",
+  "chunk_size": 500,
+  "overlap": 100,
+  "examples": [
+    {
+      "question": "What is tested on the first page?",
+      "relevant_chunk_ids": [
+        "page-1-chunk-0"
+      ]
+    },
+    {
+      "question": "Where is citation metadata tested?",
+      "relevant_chunk_ids": [
+        "page-2-chunk-0"
+      ]
+    }
+  ]
+}

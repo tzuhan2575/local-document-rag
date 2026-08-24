@@ -1,0 +1,12 @@
+{
+  "dataset": "evaluation/retrieval_examples.json",
+  "document": "fixtures/sample.pdf",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "chunk_size": 500,
+  "overlap": 100,
+  "chunk_count": 2,
+  "query_count": 2,
+  "top_k": 1,
+  "recall_at_k": 1.0,
+  "mean_reciprocal_rank": 1.0
+}
