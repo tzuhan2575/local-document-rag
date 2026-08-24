@@ -98,3 +98,12 @@ python -m uvicorn local_document_rag.api:app --app-dir src --port 8000
 Available endpoints:
 GET /health — service health check
 GET /docs — interactive Swagger UI
+
+Example query request:
+
+```bash
+curl -X POST http://127.0.0.1:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question":"What does the document say?","top_k":3}'
+The default exported app does not initialize ML or API dependencies and returns
+HTTP 503 for /query until a configured RAGAssistant is injected.
