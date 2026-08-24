@@ -166,3 +166,26 @@ PYTHONPATH=src python scripts/evaluate_retrieval.py \
 This synthetic baseline is a pipeline sanity check, not evidence of general
 retrieval quality. A meaningful experiment requires more documents, harder
 questions, negative examples, and comparison across chunking configurations.
+
+## Reproducible Installation
+
+The flexible project dependencies are declared in `pyproject.toml`. The exact
+environment used for the verified baseline is recorded in `requirements.lock`.
+
+Verified environment:
+
+- Python 3.12.9
+- macOS x86_64
+- 58 automated tests
+
+Reproduce the tested dependency set:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python -m pip install --no-deps .
+pytest -q
+The lock file contains no local paths or credentials. On other operating
+systems or CPU architectures, use python -m pip install ".[dev]" to resolve
+compatible platform-specific packages from pyproject.toml.
