@@ -1,5 +1,7 @@
 # Local Document RAG / AI Knowledge Assistant
 
+[![CI](https://github.com/tzuhan2575/local-document-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/tzuhan2575/local-document-rag/actions/workflows/ci.yml)
+
 A local document question-answering system that retrieves relevant document
 content and generates answers grounded in the retrieved evidence.
 
