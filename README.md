@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-PDF extraction, overlapping chunking, local embeddings, and exact semantic retrieval implemented with automated tests.
+PDF extraction, overlapping chunking, local embeddings, semantic retrieval, and persistent Qdrant vector storage implemented with automated tests.
 Environment
 Python 3.12
 macOS
@@ -41,3 +41,11 @@ Virtual environment: venv
 - In-memory document embedding index
 - Ranked retrieval with similarity scores and page metadata
 - Current limitation: embeddings are recomputed after each restart
+
+## Vector Database
+
+- Qdrant local mode with on-disk persistence
+- Cosine-distance collections with explicit vector dimensions
+- Chunk text and page positions stored as payload metadata
+- Stable UUID-based point IDs for idempotent upserts
+- In-memory Qdrant integration tests require no Docker or network
