@@ -22,8 +22,15 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-PDF extraction and overlapping character-based chunking implemented with source-position metadata and automated tests.
+PDF extraction, overlapping chunking, and local normalized text embeddings implemented with automated tests.
 Environment
 Python 3.12
 macOS
 Virtual environment: venv
+
+## Embedding Baseline
+
+- Model: `sentence-transformers/all-MiniLM-L6-v2`
+- Output dimension: 384
+- Local inference with Sentence Transformers
+- L2-normalized vectors for cosine similarity search
