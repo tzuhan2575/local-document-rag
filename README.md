@@ -22,7 +22,7 @@ Return source-aware answers
 Evaluate retrieval and answer quality
 Provide a reproducible API-based application
 Status
-End-to-end local document RAG implemented with persistent retrieval, grounded prompting, OpenAI integration, and a tested FastAPI service.
+End-to-end local document RAG implemented with persistent retrieval, grounded prompting, OpenAI integration, FastAPI, and retrieval evaluation.
 Environment
 Python 3.12
 macOS
@@ -137,3 +137,16 @@ The current API keeps local Qdrant operations on the FastAPI event-loop thread
 because its embedded SQLite storage is thread-affine. This is appropriate for
 the current single-user local application. A production deployment should use a
 Qdrant server or asynchronous storage boundary for concurrent workloads.
+
+## Retrieval Evaluation
+
+Retrieval is evaluated separately from answer generation to distinguish
+retrieval failures from generation failures.
+
+Current metrics:
+
+- Recall@k — fraction of labeled relevant chunks retrieved in the top-k
+- Mean Reciprocal Rank — average inverse rank of the first relevant chunk
+
+The evaluation implementation supports multiple relevant chunks per question
+and validates empty labels, invalid questions, and top-k configuration.
