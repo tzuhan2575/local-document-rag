@@ -3,7 +3,7 @@
 from pathlib import Path
 from shutil import copyfileobj
 from tempfile import TemporaryDirectory
-from typing import Annotated, Protocol
+from typing import Annotated, Any, Protocol
 
 from fastapi import FastAPI, File, HTTPException, UploadFile, status
 from pydantic import BaseModel, Field, field_validator
@@ -64,12 +64,14 @@ class IndexResponse(BaseModel):
 def create_app(
     assistant: AnsweringAssistant | None = None,
     indexer: DocumentIndexingService | None = None,
+    lifespan: Any | None = None,
 ) -> FastAPI:
     """Create the API with optional RAG dependencies."""
 
     application = FastAPI(
         title="Local Document RAG API",
         version="0.1.0",
+        lifespan=lifespan,
     )
 
     @application.get(

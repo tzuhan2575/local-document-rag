@@ -27,3 +27,6 @@ vector_store/
 # Build artifacts
 build/
 dist/
+
+# Allow the public environment template
+!.env.example

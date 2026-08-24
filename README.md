@@ -94,7 +94,7 @@ The project exposes a FastAPI application with automatic OpenAPI documentation.
 Run locally:
 
 ```bash
-python -m uvicorn local_document_rag.api:app --app-dir src --port 8000
+python -m uvicorn local_document_rag.runtime:create_runtime_app --factory --app-dir src --port 8000
 Available endpoints:
 GET /health — service health check
 GET /docs — interactive Swagger UI
@@ -116,3 +116,17 @@ curl -X POST http://127.0.0.1:8000/documents \
 Uploaded files are copied into a temporary directory for extraction. The
 temporary file is removed after indexing; persistent chunks, embeddings, and
 source metadata remain in Qdrant.
+
+## Runtime Configuration
+
+Copy `.env.example` to `.env` only when local overrides are needed.
+
+- `QDRANT_PATH` — local persistent vector database directory
+- `QDRANT_COLLECTION` — Qdrant collection name
+- `EMBEDDING_MODEL` — local Sentence Transformers model
+- `OPENAI_MODEL` — OpenAI generation model
+- `OPENAI_API_KEY` — optional secret; never commit this value
+
+When `OPENAI_API_KEY` is absent, PDF indexing remains available and `/query`
+returns HTTP 503. The application does not store the API key in its settings
+object.
