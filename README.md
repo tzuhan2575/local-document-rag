@@ -130,3 +130,10 @@ Copy `.env.example` to `.env` only when local overrides are needed.
 When `OPENAI_API_KEY` is absent, PDF indexing remains available and `/query`
 returns HTTP 503. The application does not store the API key in its settings
 object.
+
+### Local Qdrant Concurrency Note
+
+The current API keeps local Qdrant operations on the FastAPI event-loop thread
+because its embedded SQLite storage is thread-affine. This is appropriate for
+the current single-user local application. A production deployment should use a
+Qdrant server or asynchronous storage boundary for concurrent workloads.

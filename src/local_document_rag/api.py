@@ -91,7 +91,7 @@ def create_app(
         status_code=status.HTTP_201_CREATED,
         tags=["rag"],
     )
-    def index_document(
+    async def index_document(
         file: Annotated[
             UploadFile,
             File(description="PDF document to index"),
@@ -138,7 +138,7 @@ def create_app(
         response_model=QueryResponse,
         tags=["rag"],
     )
-    def query(request: QueryRequest) -> QueryResponse:
+    async def query(request: QueryRequest) -> QueryResponse:
         if assistant is None:
             raise HTTPException(
                 status_code=503,
